@@ -21,12 +21,40 @@ const DemoForm: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log('Form submitted:', formData);
-    setIsSubmitted(true);
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbwoX8b3Ba0BfDl_Z4F3JPdnJ_TK7u4dLqRftTleRMaPKj_oBOSNnVbdrVW3_mJRLv9k/exec", {
+      method: "POST",
+      mode: "cors", // CORS enabled
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        "email-address": formData.email,
+        "phone-number": formData.phone,
+        "restaurant-name": formData.restaurantName,
+        "restaurant-type": formData.restaurantType,
+        "additional-information": formData.message
+        // timestamp will be added by Apps Script
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.status === "success") {
+      setIsSubmitted(true);
+    } else {
+      alert("There was an error: " + result.message);
+    }
+  } catch (err) {
+    console.error("Submission error:", err);
+    alert("Failed to submit. Please try again later.");
+  }
+};
+
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
