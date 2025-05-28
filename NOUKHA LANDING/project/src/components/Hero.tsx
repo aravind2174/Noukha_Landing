@@ -28,9 +28,7 @@ const Hero: React.FC = () => {
 
           <div className="w-full lg:w-1/2 lg:pl-12">
             <div className="bg-white rounded-xl shadow-xl overflow-hidden relative group">
-              <div
-                className={`relative w-full pt-[56.25%] ${isVideoOpen ? 'video-wrapper' : ''}`}
-              >
+              <div className={`relative w-full pt-[56.25%] rounded-xl ${isVideoOpen ? 'glow-border' : ''}`}>
                 {isVideoOpen ? (
                   <iframe
                     src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
@@ -65,9 +63,9 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Inline style block for animation */}
+      {/* Glowing border style */}
       <style jsx>{`
-        .video-wrapper::before {
+        .glow-border::before {
           content: '';
           position: absolute;
           top: -4px;
@@ -75,19 +73,26 @@ const Hero: React.FC = () => {
           right: -4px;
           bottom: -4px;
           border-radius: 1rem;
-          border: 3px solid transparent;
-          border-top-color: #179e42;
-          animation: spin 2s linear infinite;
+          border: 2px solid transparent;
+          background: linear-gradient(120deg, transparent, #179e42, transparent);
+          background-size: 200% 200%;
+          animation: borderGlow 2s linear infinite;
           z-index: 5;
           pointer-events: none;
         }
 
-        @keyframes spin {
+        @keyframes borderGlow {
           0% {
-            transform: rotate(0deg);
+            background-position: 0% 50%;
+            box-shadow: 0 0 10px #179e42, 0 0 20px #179e42, 0 0 30px #179e42;
+          }
+          50% {
+            background-position: 100% 50%;
+            box-shadow: 0 0 20px #179e42, 0 0 30px #179e42, 0 0 40px #179e42;
           }
           100% {
-            transform: rotate(360deg);
+            background-position: 0% 50%;
+            box-shadow: 0 0 10px #179e42, 0 0 20px #179e42, 0 0 30px #179e42;
           }
         }
       `}</style>
