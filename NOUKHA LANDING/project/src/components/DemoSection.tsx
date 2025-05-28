@@ -54,7 +54,7 @@ const DemoSection: React.FC = () => {
                   </div>
                   <div className="ml-3">
                     <p className="text-sm text-gray-600">
-                      "Noukha RMS will help in streamlining your operations across multiple outlets. Order processing time will be reduced by  reduced by 40%  in just 3 months."
+                      "Noukha RMS will help in streamlining your operations across multiple outlets. Order processing time & Operational cost will be reduced by 40%  in just 3 months."
                     </p>
                     <p className="mt-2 text-sm font-medium text-gray-900">
                     </p>
