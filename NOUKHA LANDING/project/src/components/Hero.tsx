@@ -28,18 +28,18 @@ const Hero: React.FC = () => {
 
           <div className="w-full lg:w-1/2 lg:pl-12">
             <div className="bg-white rounded-xl shadow-xl overflow-hidden relative group">
-              <div className={`relative w-full pt-[56.25%] rounded-xl overflow-hidden ${isVideoOpen ? 'glowing-border' : ''}`}>
+              <div className="relative w-full pt-[56.25%]"> {/* 16:9 aspect ratio */}
                 {isVideoOpen ? (
                   <iframe
                     src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-                    className="absolute top-0 left-0 w-full h-full rounded-xl z-10"
+                    className="absolute top-0 left-0 w-full h-full rounded-xl"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     title="Noukha RMS Demo"
                   ></iframe>
                 ) : (
                   <div
-                    className="absolute top-0 left-0 w-full h-full cursor-pointer z-10"
+                    className="absolute top-0 left-0 w-full h-full cursor-pointer"
                     onClick={() => setIsVideoOpen(true)}
                   >
                     <img
@@ -62,14 +62,8 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </div>
+    </section>
+  );
+};
 
-      <style jsx>{`
-        .glowing-border {
-          box-shadow: 0 0 10px 3px #179E42;
-          animation: pulseGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes pulseGlow {
-          0%, 100% {
-            box-shadow: 0 0 5px 2px #179E42;
-          }
+export default Hero;
