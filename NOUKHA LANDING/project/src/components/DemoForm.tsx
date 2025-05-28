@@ -47,11 +47,10 @@ const DemoForm: React.FC = () => {
     if (result.status === "success") {
       setIsSubmitted(true);
     } else {
-      alert("There was an error: " + result.message);
+      
     }
   } catch (err) {
-    console.error("Submission error:", err);
-    alert("Failed to submit. Please try again later.");
+    
   }
 };
 
