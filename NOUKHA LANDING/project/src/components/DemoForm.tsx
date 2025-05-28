@@ -27,7 +27,7 @@ const DemoForm: React.FC = () => {
   try {
     const response = await fetch("https://script.google.com/macros/s/AKfycbwoX8b3Ba0BfDl_Z4F3JPdnJ_TK7u4dLqRftTleRMaPKj_oBOSNnVbdrVW3_mJRLv9k/exec", {
       method: "POST",
-      mode: "cors", // CORS enabled
+      mode: "no-cors", // CORS enabled
       headers: {
         "Content-Type": "application/json"
       },
