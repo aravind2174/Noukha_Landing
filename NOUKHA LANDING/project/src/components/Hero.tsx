@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
 
           <div className="w-full lg:w-1/2 lg:pl-12">
             <div className="bg-white rounded-xl shadow-xl overflow-hidden relative group">
-              <div className={`relative w-full pt-[56.25%] rounded-xl ${isVideoOpen ? 'glow-border' : ''}`}>
+              <div className={`relative w-full pt-[56.25%] rounded-xl overflow-hidden ${isVideoOpen ? 'border-animate' : ''}`}>
                 {isVideoOpen ? (
                   <iframe
                     src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
@@ -52,6 +52,13 @@ const Hero: React.FC = () => {
                     </div>
                   </div>
                 )}
+
+                {/* Glowing border animation */}
+                {isVideoOpen && (
+                  <div className="absolute top-0 left-0 w-full h-full rounded-xl pointer-events-none z-20 overflow-hidden">
+                    <div className="absolute inset-0 rounded-xl borderGlowEffect" />
+                  </div>
+                )}
               </div>
               <div className="p-4 bg-white">
                 <p className="text-sm text-center text-gray-500">
@@ -63,36 +70,29 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Glowing border style */}
+      {/* Border animation styles */}
       <style jsx>{`
-        .glow-border::before {
+        .borderGlowEffect {
           content: '';
-          position: absolute;
-          top: -4px;
-          left: -4px;
-          right: -4px;
-          bottom: -4px;
           border-radius: 1rem;
-          border: 2px solid transparent;
-          background: linear-gradient(120deg, transparent, #179e42, transparent);
-          background-size: 200% 200%;
-          animation: borderGlow 2s linear infinite;
-          z-index: 5;
-          pointer-events: none;
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          right: -2px;
+          bottom: -2px;
+          z-index: 99;
+          background: conic-gradient(#179e42 0deg, transparent 90deg, #179e42 180deg, transparent 270deg, #179e42 360deg);
+          animation: spin-border 3s linear infinite;
+          mask-image: linear-gradient(#000 0 0); /* ensure visible */
+          box-shadow: 0 0 15px #179e42;
         }
 
-        @keyframes borderGlow {
+        @keyframes spin-border {
           0% {
-            background-position: 0% 50%;
-            box-shadow: 0 0 10px #179e42, 0 0 20px #179e42, 0 0 30px #179e42;
-          }
-          50% {
-            background-position: 100% 50%;
-            box-shadow: 0 0 20px #179e42, 0 0 30px #179e42, 0 0 40px #179e42;
+            transform: rotate(0deg);
           }
           100% {
-            background-position: 0% 50%;
-            box-shadow: 0 0 10px #179e42, 0 0 20px #179e42, 0 0 30px #179e42;
+            transform: rotate(360deg);
           }
         }
       `}</style>
