@@ -62,7 +62,7 @@ const Hero: React.FC = () => {
           >
             <div className="aspect-w-16 aspect-h-9">
               <iframe
-                src="https://player.vimeo.com/video/1088319346?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+                src="https://youtu.be/5kDYtWjIfOQ"
                 className="w-full h-full rounded-xl"
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
