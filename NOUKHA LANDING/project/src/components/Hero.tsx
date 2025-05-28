@@ -28,18 +28,20 @@ const Hero: React.FC = () => {
 
           <div className="w-full lg:w-1/2 lg:pl-12">
             <div className="bg-white rounded-xl shadow-xl overflow-hidden relative group">
-              <div className="relative w-full pt-[56.25%]"> {/* 16:9 aspect ratio */}
+              <div
+                className={`relative w-full pt-[56.25%] ${isVideoOpen ? 'video-wrapper' : ''}`}
+              >
                 {isVideoOpen ? (
                   <iframe
                     src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-                    className="absolute top-0 left-0 w-full h-full rounded-xl"
+                    className="absolute top-0 left-0 w-full h-full rounded-xl z-10"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     title="Noukha RMS Demo"
                   ></iframe>
                 ) : (
                   <div
-                    className="absolute top-0 left-0 w-full h-full cursor-pointer"
+                    className="absolute top-0 left-0 w-full h-full cursor-pointer z-10"
                     onClick={() => setIsVideoOpen(true)}
                   >
                     <img
@@ -62,6 +64,33 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Inline style block for animation */}
+      <style jsx>{`
+        .video-wrapper::before {
+          content: '';
+          position: absolute;
+          top: -4px;
+          left: -4px;
+          right: -4px;
+          bottom: -4px;
+          border-radius: 1rem;
+          border: 3px solid transparent;
+          border-top-color: #179e42;
+          animation: spin 2s linear infinite;
+          z-index: 5;
+          pointer-events: none;
+        }
+
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
     </section>
   );
 };
