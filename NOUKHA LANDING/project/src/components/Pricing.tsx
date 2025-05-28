@@ -52,7 +52,7 @@ const Pricing: React.FC = () => {
                     Schedule Now
                   </h4>
                   <Button 
-                    href="https://calendly.com/aravindkannan-noukha/30min" 
+                    href="https://calendly.com/noukha/30mins?embed_domain=noukha.in&embed_type=PopupText&hide_landing_page_details=1&hide_gdpr_banner=1&month=2025-05" 
                     variant="primary"
                     fullWidth
                     target="_blank"
