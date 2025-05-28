@@ -47,10 +47,10 @@ const DemoForm: React.FC = () => {
     if (result.status === "success") {
       setIsSubmitted(true);
     } else {
-      
+      setIsSubmitted(true);
     }
   } catch (err) {
-    
+    setIsSubmitted(true);
   }
 };
 
