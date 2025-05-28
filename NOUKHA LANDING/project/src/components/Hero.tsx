@@ -6,7 +6,8 @@ const Hero: React.FC = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   const videoId = '5kDYtWjIfOQ';
-  const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  const thumbnailUrl =
+    'https://images.pexels.com/photos/12935088/pexels-photo-12935088.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
 
   return (
     <section className="pt-28 pb-16 md:pt-32 md:pb-24 bg-gradient-to-b from-gray-50 to-white">
@@ -28,18 +29,22 @@ const Hero: React.FC = () => {
 
           <div className="w-full lg:w-1/2 lg:pl-12">
             <div className="bg-white rounded-xl shadow-xl overflow-hidden relative group">
-              <div className="relative w-full pt-[56.25%]"> {/* 16:9 aspect ratio */}
+              <div
+                className={`relative w-full pt-[56.25%] rounded-xl overflow-hidden ${
+                  isVideoOpen ? 'glowing-border' : ''
+                }`}
+              >
                 {isVideoOpen ? (
                   <iframe
                     src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-                    className="absolute top-0 left-0 w-full h-full rounded-xl"
+                    className="absolute top-0 left-0 w-full h-full rounded-xl z-10"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     title="Noukha RMS Demo"
-                  ></iframe>
+                  />
                 ) : (
                   <div
-                    className="absolute top-0 left-0 w-full h-full cursor-pointer"
+                    className="absolute top-0 left-0 w-full h-full cursor-pointer z-10"
                     onClick={() => setIsVideoOpen(true)}
                   >
                     <img
@@ -62,6 +67,23 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .glowing-border {
+          box-shadow: 0 0 10px 3px #179e42;
+          animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+          0%,
+          100% {
+            box-shadow: 0 0 5px 2px #179e42;
+          }
+          50% {
+            box-shadow: 0 0 15px 5px #179e42;
+          }
+        }
+      `}</style>
     </section>
   );
 };
