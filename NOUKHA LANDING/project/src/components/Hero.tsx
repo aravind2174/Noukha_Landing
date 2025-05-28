@@ -28,18 +28,18 @@ const Hero: React.FC = () => {
 
           <div className="w-full lg:w-1/2 lg:pl-12">
             <div className="bg-white rounded-xl shadow-xl overflow-hidden relative group">
-              <div className="aspect-w-16 aspect-h-9 w-full">
+              <div className="relative w-full pt-[56.25%]"> {/* 16:9 aspect ratio */}
                 {isVideoOpen ? (
                   <iframe
                     src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-                    className="w-full h-full rounded-xl"
+                    className="absolute top-0 left-0 w-full h-full rounded-xl"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     title="Noukha RMS Demo"
                   ></iframe>
                 ) : (
                   <div
-                    className="relative w-full h-full cursor-pointer"
+                    className="absolute top-0 left-0 w-full h-full cursor-pointer"
                     onClick={() => setIsVideoOpen(true)}
                   >
                     <img
