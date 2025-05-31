@@ -10,7 +10,7 @@ const DemoForm: React.FC = () => {
     restaurantType: '',
     message: ''
   });
-  
+
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -22,38 +22,34 @@ const DemoForm: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbwoX8b3Ba0BfDl_Z4F3JPdnJ_TK7u4dLqRftTleRMaPKj_oBOSNnVbdrVW3_mJRLv9k/exec", {
-      method: "POST",
-      mode: "no-cors", // CORS enabled
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: formData.name,
-        "email-address": formData.email,
-        "phone-number": formData.phone,
-        "restaurant-name": formData.restaurantName,
-        "restaurant-type": formData.restaurantType,
-        "additional-information": formData.message
-        // timestamp will be added by Apps Script
-      })
-    });
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbwoX8b3Ba0BfDl_Z4F3JPdnJ_TK7u4dLqRftTleRMaPKj_oBOSNnVbdrVW3_mJRLv9k/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            "email-address": formData.email,
+            "phone-number": formData.phone,
+            "restaurant-name": formData.restaurantName,
+            "restaurant-type": formData.restaurantType,
+            "additional-information": formData.message
+          })
+        }
+      );
 
-    const result = await response.json();
-
-    if (result.status === "success") {
+      // Since mode is no-cors, we can't actually parse a response
       setIsSubmitted(true);
-    } else {
+    } catch (err) {
       setIsSubmitted(true);
     }
-  } catch (err) {
-    setIsSubmitted(true);
-  }
-};
-
+  };
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
@@ -90,7 +86,7 @@ const DemoForm: React.FC = () => {
                 />
               </div>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
@@ -121,7 +117,7 @@ const DemoForm: React.FC = () => {
                 />
               </div>
             </div>
-            
+
             <div>
               <label htmlFor="restaurantType" className="block text-sm font-medium text-gray-700 mb-1">
                 Restaurant Type
@@ -131,7 +127,7 @@ const DemoForm: React.FC = () => {
                 name="restaurantType"
                 value={formData.restaurantType}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-colors"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 focus:ring-2 focus:ring-gray-300 focus:border-gray-400 appearance-none outline-none transition-colors"
               >
                 <option value="">Select Type</option>
                 <option value="cafe">Cafe</option>
@@ -142,7 +138,7 @@ const DemoForm: React.FC = () => {
                 <option value="other">Other</option>
               </select>
             </div>
-            
+
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                 Additional Information
@@ -158,7 +154,7 @@ const DemoForm: React.FC = () => {
               ></textarea>
             </div>
           </div>
-          
+
           <Button 
             type="submit"
             variant="primary"
@@ -166,7 +162,7 @@ const DemoForm: React.FC = () => {
           >
             Schedule My Demo
           </Button>
-          
+
           <p className="text-xs text-center text-gray-500 mt-4">
             By submitting this form, you agree to our Privacy Policy and Terms of Service.
           </p>
