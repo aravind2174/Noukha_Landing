@@ -127,7 +127,7 @@ const DemoForm: React.FC = () => {
                 name="restaurantType"
                 value={formData.restaurantType}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 focus:ring-2 focus:ring-gray-300 focus:border-gray-400 appearance-none outline-none transition-colors"
+                className="w-full px-4 py-2 border border-gray-300 bg-gray-300 rounded-lg bg-gray-50 text-gray-800 focus:ring-2 focus:ring-gray-300 focus:border-gray-400 appearance-none outline-none transition-colors"
               >
                 <option value="">Select Type</option>
                 <option value="cafe">Cafe</option>
