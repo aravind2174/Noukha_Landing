@@ -4,49 +4,24 @@ import { Menu, X } from 'lucide-react';
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [calendlyLoaded, setCalendlyLoaded] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-
-    // Load Calendly script only once
-    const scriptId = 'calendly-widget';
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement('script');
-      script.id = scriptId;
-      script.src = 'https://assets.calendly.com/assets/external/widget.js';
-      script.async = true;
-      script.onload = () => setCalendlyLoaded(true);
-      document.head.appendChild(script);
-    } else {
-      setCalendlyLoaded(true);
-    }
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const openCalendly = () => {
-    if (window.Calendly) {
-      window.Calendly.initPopupWidget({
-        url: 'https://calendly.com/noukha/30mins?embed_domain=noukha.in&embed_type=PopupText&hide_landing_page_details=1&hide_gdpr_banner=1&month=2025-06',
-      });
-    } else {
-      console.warn("Calendly is not loaded yet.");
-    }
-  };
+  const calendlyLink = 'https://calendly.com/noukha/30mins?embed_domain=noukha.in&hide_landing_page_details=1&hide_gdpr_banner=1';
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          <div className="flex items-center">
-            <img
-              src="https://noukha.in/static/media/noukha-long-logo.487144d20514b2920304.png"
-              alt="Noukha RMS"
-              className="h-8 w-auto"
-            />
-          </div>
+          <img
+            src="https://noukha.in/static/media/noukha-long-logo.487144d20514b2920304.png"
+            alt="Noukha RMS"
+            className="h-8 w-auto"
+          />
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
@@ -54,13 +29,14 @@ const Navbar: React.FC = () => {
             <a href="#use-cases" className="text-gray-700 hover:text-green-600 transition-colors">Use Cases</a>
             <a href="#pricing" className="text-gray-700 hover:text-green-600 transition-colors">Pricing</a>
             <a href="#faq" className="text-gray-700 hover:text-green-600 transition-colors">FAQ</a>
-            <button
-              onClick={openCalendly}
+            <a
+              href={calendlyLink}
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
-              disabled={!calendlyLoaded}
             >
-              {calendlyLoaded ? "Book a Demo" : "Loading..."}
-            </button>
+              Book a Demo
+            </a>
           </div>
 
           {/* Mobile menu button */}
@@ -77,20 +53,19 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-4">
-            <a href="#benefits" className="block text-gray-700 hover:text-green-600 py-2" onClick={() => setIsOpen(false)}>Features</a>
-            <a href="#use-cases" className="block text-gray-700 hover:text-green-600 py-2" onClick={() => setIsOpen(false)}>Use Cases</a>
-            <a href="#pricing" className="block text-gray-700 hover:text-green-600 py-2" onClick={() => setIsOpen(false)}>Pricing</a>
-            <a href="#faq" className="block text-gray-700 hover:text-green-600 py-2" onClick={() => setIsOpen(false)}>FAQ</a>
-            <button
-              onClick={() => {
-                openCalendly();
-                setIsOpen(false);
-              }}
-              className="block w-full bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors text-center"
-              disabled={!calendlyLoaded}
+            <a href="#benefits" onClick={() => setIsOpen(false)} className="block text-gray-700 hover:text-green-600 py-2">Features</a>
+            <a href="#use-cases" onClick={() => setIsOpen(false)} className="block text-gray-700 hover:text-green-600 py-2">Use Cases</a>
+            <a href="#pricing" onClick={() => setIsOpen(false)} className="block text-gray-700 hover:text-green-600 py-2">Pricing</a>
+            <a href="#faq" onClick={() => setIsOpen(false)} className="block text-gray-700 hover:text-green-600 py-2">FAQ</a>
+            <a
+              href={calendlyLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 text-center transition-colors"
+              onClick={() => setIsOpen(false)}
             >
-              {calendlyLoaded ? "Book a Demo" : "Loading..."}
-            </button>
+              Book a Demo
+            </a>
           </div>
         )}
       </div>
