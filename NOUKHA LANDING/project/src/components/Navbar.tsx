@@ -4,31 +4,35 @@ import { Menu, X } from 'lucide-react';
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [calendlyLoaded, setCalendlyLoaded] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
 
-    // Load Calendly script if not already loaded
-    if (typeof window !== 'undefined' && !window.Calendly) {
+    // Load Calendly script only once
+    const scriptId = 'calendly-widget';
+    if (!document.getElementById(scriptId)) {
       const script = document.createElement('script');
+      script.id = scriptId;
       script.src = 'https://assets.calendly.com/assets/external/widget.js';
       script.async = true;
+      script.onload = () => setCalendlyLoaded(true);
       document.head.appendChild(script);
+    } else {
+      setCalendlyLoaded(true);
     }
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const openCalendly = () => {
-    if (typeof window !== 'undefined' && window.Calendly) {
+    if (window.Calendly) {
       window.Calendly.initPopupWidget({
         url: 'https://calendly.com/noukha/30mins?embed_domain=noukha.in&embed_type=PopupText&hide_landing_page_details=1&hide_gdpr_banner=1&month=2025-06',
       });
     } else {
-      console.warn("Calendly script not loaded yet.");
+      console.warn("Calendly is not loaded yet.");
     }
   };
 
@@ -53,8 +57,9 @@ const Navbar: React.FC = () => {
             <button
               onClick={openCalendly}
               className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
+              disabled={!calendlyLoaded}
             >
-              Book a Demo
+              {calendlyLoaded ? "Book a Demo" : "Loading..."}
             </button>
           </div>
 
@@ -82,8 +87,9 @@ const Navbar: React.FC = () => {
                 setIsOpen(false);
               }}
               className="block w-full bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors text-center"
+              disabled={!calendlyLoaded}
             >
-              Book a Demo
+              {calendlyLoaded ? "Book a Demo" : "Loading..."}
             </button>
           </div>
         )}
