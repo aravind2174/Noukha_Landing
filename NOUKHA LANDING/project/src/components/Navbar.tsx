@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
   const openCalendly = () => {
     if (typeof window !== 'undefined' && window.Calendly) {
       window.Calendly.initPopupWidget({
-        url: 'https://calendly.com/noukha/30mins?embed_domain=noukha.in&embed_type=PopupText&hide_landing_page_details=1&hide_gdpr_banner=1',
+        url: 'https://calendly.com/noukha/30mins?embed_domain=noukha.in&embed_type=PopupText&hide_landing_page_details=1&hide_gdpr_banner=1&month=2025-06',
       });
     } else {
       console.warn("Calendly script not loaded yet.");
