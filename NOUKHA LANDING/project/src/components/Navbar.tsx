@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
-// Make sure to include Calendly script in your HTML or _app.tsx:
-// <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,18 +9,26 @@ const Navbar: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener('scroll', handleScroll);
+
+    // Load Calendly script if not already loaded
+    if (typeof window !== 'undefined' && !window.Calendly) {
+      const script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      document.head.appendChild(script);
+    }
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Open Calendly popup
   const openCalendly = () => {
-    if (window.Calendly) {
+    if (typeof window !== 'undefined' && window.Calendly) {
       window.Calendly.initPopupWidget({
-        url: 'https://calendly.com/noukha/30mins?embed_domain=noukha.in&embed_type=PopupText&hide_landing_page_details=1&hide_gdpr_banner=1&month=2025-05',
+        url: 'https://calendly.com/noukha/30mins?embed_domain=noukha.in&embed_type=PopupText&hide_landing_page_details=1&hide_gdpr_banner=1',
       });
-      return false; // prevent default link behavior
+    } else {
+      console.warn("Calendly script not loaded yet.");
     }
   };
 
@@ -37,7 +42,6 @@ const Navbar: React.FC = () => {
               alt="Noukha RMS"
               className="h-8 w-auto"
             />
-            <span className="ml-2 text-xl font-bold text-gray-900"></span>
           </div>
 
           {/* Desktop Menu */}
@@ -68,34 +72,10 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-4">
-            <a
-              href="#benefits"
-              className="block text-gray-700 hover:text-green-600 py-2"
-              onClick={() => setIsOpen(false)}
-            >
-              Features
-            </a>
-            <a
-              href="#use-cases"
-              className="block text-gray-700 hover:text-green-600 py-2"
-              onClick={() => setIsOpen(false)}
-            >
-              Use Cases
-            </a>
-            <a
-              href="#pricing"
-              className="block text-gray-700 hover:text-green-600 py-2"
-              onClick={() => setIsOpen(false)}
-            >
-              Pricing
-            </a>
-            <a
-              href="#faq"
-              className="block text-gray-700 hover:text-green-600 py-2"
-              onClick={() => setIsOpen(false)}
-            >
-              FAQ
-            </a>
+            <a href="#benefits" className="block text-gray-700 hover:text-green-600 py-2" onClick={() => setIsOpen(false)}>Features</a>
+            <a href="#use-cases" className="block text-gray-700 hover:text-green-600 py-2" onClick={() => setIsOpen(false)}>Use Cases</a>
+            <a href="#pricing" className="block text-gray-700 hover:text-green-600 py-2" onClick={() => setIsOpen(false)}>Pricing</a>
+            <a href="#faq" className="block text-gray-700 hover:text-green-600 py-2" onClick={() => setIsOpen(false)}>FAQ</a>
             <button
               onClick={() => {
                 openCalendly();
