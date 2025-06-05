@@ -4,17 +4,24 @@ import { PlayCircle } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [calendlyLoaded, setCalendlyLoaded] = useState(false);
 
   const videoId = '5kDYtWjIfOQ';
   const thumbnailUrl =
     'https://images.pexels.com/photos/12935088/pexels-photo-12935088.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && !window.Calendly) {
+    // Load Calendly only once and track readiness
+    const scriptId = 'calendly-widget';
+    if (!document.getElementById(scriptId)) {
       const script = document.createElement('script');
+      script.id = scriptId;
       script.src = 'https://assets.calendly.com/assets/external/widget.js';
       script.async = true;
+      script.onload = () => setCalendlyLoaded(true);
       document.head.appendChild(script);
+    } else {
+      setCalendlyLoaded(true);
     }
   }, []);
 
@@ -40,8 +47,8 @@ const Hero: React.FC = () => {
               From order to insights — manage it all with Noukha RMS.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button onClick={openCalendly} variant="primary">
-                Book a Free Demo
+              <Button onClick={openCalendly} variant="primary" disabled={!calendlyLoaded}>
+                {calendlyLoaded ? "Book a Free Demo" : "Loading..."}
               </Button>
             </div>
           </div>
