@@ -1,39 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from './ui/Button';
 import { PlayCircle } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
-  const [calendlyLoaded, setCalendlyLoaded] = useState(false);
 
   const videoId = '5kDYtWjIfOQ';
-  const thumbnailUrl =
-    'https://images.pexels.com/photos/12935088/pexels-photo-12935088.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
-
-  useEffect(() => {
-    // Load Calendly only once and track readiness
-    const scriptId = 'calendly-widget';
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement('script');
-      script.id = scriptId;
-      script.src = 'https://assets.calendly.com/assets/external/widget.js';
-      script.async = true;
-      script.onload = () => setCalendlyLoaded(true);
-      document.head.appendChild(script);
-    } else {
-      setCalendlyLoaded(true);
-    }
-  }, []);
-
-  const openCalendly = () => {
-    if (typeof window !== 'undefined' && window.Calendly) {
-      window.Calendly.initPopupWidget({
-        url: 'https://calendly.com/noukha/30mins?embed_domain=noukha.in&embed_type=PopupText&hide_landing_page_details=1&hide_gdpr_banner=1&month=2025-06',
-      });
-    } else {
-      console.warn('Calendly not loaded yet');
-    }
-  };
+  const thumbnailUrl = 'https://images.pexels.com/photos/12935088/pexels-photo-12935088.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
+  const calendlyLink = 'https://calendly.com/noukha/30mins?embed_domain=noukha.in&hide_landing_page_details=1&hide_gdpr_banner=1';
 
   return (
     <section className="pt-28 pb-16 md:pt-32 md:pb-24 bg-gradient-to-b from-gray-50 to-white">
@@ -47,8 +21,13 @@ const Hero: React.FC = () => {
               From order to insights — manage it all with Noukha RMS.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button onClick={openCalendly} variant="primary" disabled={!calendlyLoaded}>
-                {calendlyLoaded ? "Book a Free Demo" : "Loading..."}
+              <Button
+                href={calendlyLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="primary"
+              >
+                Book a Free Demo
               </Button>
             </div>
           </div>
