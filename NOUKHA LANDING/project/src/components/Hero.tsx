@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
               >
                 {isVideoOpen ? (
                   <iframe
-                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                    src={'https://player.cloudinary.com/embed/?cloud_name=dhn6uszk0&public_id=RESTAURANT_MGT_SOFTWARE_FINAL_VIDEO_ytlkw0&profile=cld-default'}
                     className="absolute top-0 left-0 w-full h-full rounded-xl z-10"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
